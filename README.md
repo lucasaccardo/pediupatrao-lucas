@@ -30,6 +30,17 @@ Pode ser alterado por variável de ambiente, sem mexer no código:
 | `MONGODB_URI` | URI do cluster da disciplina |
 | `MONGODB_DATABASE` | `pediupatrao_lucas` |
 
+#### Usando um MongoDB local (quando o IP não está liberado no Atlas)
+Se aparecer `SSLException: Received fatal alert: internal_error`, o Atlas recusou o IP da sua rede. Rode um MongoDB local:
+```bat
+:: janela 1 - sobe o MongoDB (deixe aberta)
+mongod --dbpath %USERPROFILE%\mongo-data
+
+:: janela 2 - sobe a aplicação apontando para o banco local
+set MONGODB_URI=mongodb://localhost:27017
+mvnw spring-boot:run
+```
+
 ### Usuários criados automaticamente (DataInitializer)
 | Usuário | Senha | Perfil |
 |---|---|---|
