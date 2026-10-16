@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo Pedido</title>
+</head>
+<body>
+<div th:fragment="content">
+
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a th:href="@{/pedidos}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i></a>
+        <h2 class="fw-bold mb-0">Novo Pedido</h2>
+    </div>
+
+    <div th:replace="~{fragments/alertas :: alertas}"></div>
+
+    <div class="alert alert-info small">
+        <i class="bi bi-info-circle"></i>
+        O preço de cada produto e o valor total são calculados <strong>no servidor</strong>
+        a partir do cadastro de produtos. O valor exibido aqui é apenas uma prévia.
+    </div>
+
+    <form th:action="@{/pedidos}" method="post" class="card shadow-sm" style="max-width: 820px;">
+        <div class="card-body p-4">
+
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label for="clienteId" class="form-label fw-medium"><i class="bi bi-person me-1"></i>Cliente</label>
+                    <select id="clienteId" name="clienteId" class="form-select" required>
+                        <option value="">Selecione o cliente</option>
+                        <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome}"></option>
+                    </select>
+                    <div class="form-text" th:if="${#lists.isEmpty(clientes)}">
+                        Nenhum cliente cadastrado. Cadastre um cliente primeiro (perfil ATENDENTE).
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="modalidade" class="form-label fw-medium"><i class="bi bi-truck me-1"></i>Modalidade</label>
+                    <select id="modalidade" name="modalidade" class="form-select">
+                        <option th:each="m : ${modalidades}" th:value="${m}" th:text="${m.descricao}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <table class="table align-middle">
+                <thead class="table-light">
+                    <tr><th>Produto</th><th>Tipo</th><th>Preço</th><th style="width:130px">Quantidade</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(produtos)}">
+                        <td colspan="4" class="text-muted text-center">Nenhum produto ativo cadastrado.</td>
+                    </tr>
+                    <tr th:each="p : ${produtos}">
+                        <td th:text="${p.nome}"></td>
+                        <td th:text="${p.tipo}"></td>
+                        <td th:text="${p.preco != null} ? ${'R$ ' + #numbers.formatDecimal(p.preco, 1, 'POINT', 2, 'COMMA')} : '-'"></td>
+                        <td>
+                            <input type="hidden" name="produtoId" th:value="${p.id}">
+                            <input type="number" name="quantidade" class="form-control qtd" min="0" max="50" value="0"
+                                   th:attr="data-preco=${p.preco}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mb-3">
+                <label for="observacao" class="form-label fw-medium">Observação</label>
+                <input type="text" id="observacao" name="observacao" class="form-control" maxlength="300"
+                       placeholder="Ex.: sem cebola, troco para R$ 100">
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="fs-5">Prévia: <strong id="previa">R$ 0,00</strong></div>
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Registrar pedido</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        // Prévia apenas visual. O servidor recalcula tudo e ignora valores enviados pelo navegador.
+        function atualizarPrevia() {
+            let total = 0;
+            document.querySelectorAll('.qtd').forEach(i => {
+                total += (parseFloat(i.dataset.preco) || 0) * (parseInt(i.value) || 0);
+            });
+            document.getElementById('previa').textContent =
+                total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+        document.querySelectorAll('.qtd').forEach(i => i.addEventListener('input', atualizarPrevia));
+    </script>
+</div>
+</body>
+</html>

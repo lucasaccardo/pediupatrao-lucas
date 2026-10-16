@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Teste de Permissões</title>
+</head>
+<body>
+<div th:fragment="content">
+
+    <h2 class="fw-bold mb-2"><i class="bi bi-shield-lock me-2 text-primary"></i>Teste de permissões no backend</h2>
+    <p class="text-muted">
+        Logado como <strong sec:authentication="name"></strong>.
+        Os botões abaixo chamam as <strong>APIs diretamente</strong> (sem usar as telas), com o token CSRF da sessão.
+        Se o perfil não tiver permissão, o servidor responde <span class="badge bg-danger">403 Forbidden</span> —
+        isso prova que a regra está no backend e não apenas escondendo botões.
+    </p>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label fw-medium">ID do pedido (para testar desconto, cancelamento e status)</label>
+                <input type="text" id="pedidoId" class="form-control" placeholder="Cole aqui o ID de um pedido (veja em Pedidos → Detalhes, na URL)">
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-outline-danger" onclick="testar('POST', '/api/pedidos/' + pid() + '/cancelar', {justificativa: 'Teste de acesso indevido'})">
+                    Cancelar pedido (só GERENTE)</button>
+                <button class="btn btn-outline-danger" onclick="testar('POST', '/api/pedidos/' + pid() + '/desconto', {percentual: 10, motivo: 'teste'})">
+                    Desconto 10% (só GERENTE)</button>
+                <button class="btn btn-outline-warning" onclick="testar('POST', '/api/pedidos/' + pid() + '/desconto', {percentual: 25, motivo: 'teste'})">
+                    Desconto 25% (acima do limite)</button>
+                <button class="btn btn-outline-primary" onclick="testar('PUT', '/api/pedidos/' + pid() + '/status?status=FINALIZADO')">
+                    Forçar FINALIZADO (transição inválida)</button>
+                <button class="btn btn-outline-secondary" onclick="testar('GET', '/api/auditoria')">
+                    Ler auditoria (ADMIN/GERENTE)</button>
+                <button class="btn btn-outline-secondary" onclick="testar('GET', '/api/usuarios')">
+                    Listar usuários (só ADMIN)</button>
+                <button class="btn btn-outline-danger" onclick="testar('POST', '/api/usuarios', {username: 'hacker' + Date.now() % 1000, password: '123456', role: 'ADMIN'})">
+                    Criar um ADMIN (só ADMIN)</button>
+                <button class="btn btn-outline-danger" onclick="testar('DELETE', '/api/auditoria')">
+                    Apagar auditoria (bloqueado para todos)</button>
+                <button class="btn btn-outline-secondary" onclick="testar('PUT', '/api/clientes/x', {nome: 'Teste', telefone: '11999999999'})">
+                    Alterar cliente (só ATENDENTE)</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header fw-bold">Resultado</div>
+        <div class="card-body">
+            <pre id="resultado" class="mb-0 small" style="white-space: pre-wrap;">Clique em um teste.</pre>
+        </div>
+    </div>
+
+    <script>
+        function pid() {
+            return encodeURIComponent(document.getElementById('pedidoId').value.trim() || 'id-inexistente');
+        }
+        async function testar(metodo, url, corpo) {
+            const saida = document.getElementById('resultado');
+            saida.textContent = 'Enviando ' + metodo + ' ' + url + ' ...';
+            const opcoes = { method: metodo, headers: cabecalhosCsrf({ 'Content-Type': 'application/json' }) };
+            if (corpo) { opcoes.body = JSON.stringify(corpo); }
+            try {
+                const resp = await fetch(url, opcoes);
+                const texto = await resp.text();
+                saida.textContent = metodo + ' ' + url + '\nHTTP ' + resp.status + ' ' + resp.statusText + '\n\n' + texto.substring(0, 1500);
+                saida.className = 'mb-0 small ' + (resp.ok ? 'text-success' : 'text-danger');
+            } catch (e) {
+                saida.textContent = 'Erro: ' + e;
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
