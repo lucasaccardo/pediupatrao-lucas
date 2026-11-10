@@ -40,7 +40,7 @@ O responsável pela pizzaria precisa acompanhar o desempenho das vendas sem abri
 | **RF04** | Produtos mais vendidos | Ranking de produtos por **quantidade** ou por **faturamento**, com posição e participação (%). Pedidos cancelados não entram. | `GET /api/dashboard/produtos/mais-vendidos` |
 | **RF05** | Filtros de consulta | Filtrar por data inicial, data final, status e modalidade (entrega/retirada), com atalhos (hoje, 7 dias, 30 dias, este mês, 90 dias). Os mesmos filtros valem para todos os indicadores, gráficos e listas. As opções dos campos vêm da API. | Parâmetros `inicio`, `fim`, `status`, `modalidade` em todos os endpoints · `GET /api/dashboard/filtros` |
 | **RF06** | Integração com a API | A tela não calcula nada sozinha: todos os números vêm dos endpoints REST, em JSON, que consultam o MongoDB. A API pode ser usada por outro cliente (app, planilha, BI). | `DashboardApiController` · `painel.html` (fetch) |
-| **RF07** | Atualização e tratamento de dados | Atualização automática configurável (30 s, 1 min, 5 min ou desligada) e botão "Atualizar agora", com o horário da última atualização. Mensagens claras para filtro inválido (400), sessão expirada (401), falta de permissão (403) e banco indisponível (503). Dados antigos incompletos (sem valor, status ou itens) não quebram os cálculos. Estados de "carregando" e "sem dados no período". | `RespostaDashboard.geradoEm` · `ApiExceptionHandler` · `DashboardService` |
+| **RF07** | Atualização e tratamento de dados | Atualização automática configurável (30 s, 1 min, 5 min ou desligada) e botão "Atualizar agora", com o horário da última atualização. Mensagens claras para filtro inválido (400), sessão expirada (401), falta de permissão (403) e banco indisponível (503). Filtro recusado não apaga o painel: a tela continua mostrando o último resultado válido, e a atualização automática usa sempre o último filtro aceito pelo servidor. Dados antigos incompletos (sem valor, status ou itens) não quebram os cálculos. Estados de "carregando" e "sem dados no período". | `RespostaDashboard.geradoEm` · `ApiExceptionHandler` · `DashboardService` |
 
 ---
 
@@ -142,16 +142,21 @@ Mesmo padrão da Parte 2: regra de URL no `SecurityConfig` e `@PreAuthorize` no 
 Um banco recém-criado não tem pedidos, e um dashboard vazio não demonstra nada. O `DadosDemonstracao` gera 60 dias de pedidos seguindo as próprias regras do sistema (preço do cadastro, total calculado pelo `Pedido`, transições válidas, saída com responsável). Ele só roda com `DEMO_PEDIDOS=true` e quando não há pedidos, então nunca se mistura com dados reais. A semente fixa faz a massa ser sempre a mesma, o que facilita conferir os números.
 
 **11. Gitflow.**
-A implementação foi feita na branch `feature/dashboard-api`, criada a partir de `develop`. Ao terminar, a feature foi integrada em `develop` com `merge --no-ff` (o histórico mostra que existiu uma feature) e `develop` foi levada para `main` como a versão `v1.1.0`.
+A implementação foi feita na branch `feature/dashboard-api`, criada a partir de `develop`, em quatro commits (API, tela, testes e documentação). Ao terminar, a feature foi integrada em `develop` com `merge --no-ff` (o histórico mostra que existiu uma feature) e `develop` foi levada para `main` como a versão `v1.1.0`.
 
-```
-main     ──●─────────────────────────────●  v1.1.0
-            \                           /
-develop      ●────────────────────────●
-              \                      /
-feature/       ●──●──●──●──●──●──●──●
-dashboard-api
-```
+Depois da entrega, o teste da tela mostrou um defeito: com um filtro recusado pelo servidor, alguns blocos mostravam erro e outros continuavam com dados de outro período, e a atualização automática usava datas ainda não aplicadas. Como a versão já estava na `main`, a correção seguiu o fluxo de **hotfix**: branch `hotfix/1.1.1` criada a partir da `main`, integrada de volta na `main` (tag `v1.1.1`) e também na `develop`, para a correção não se perder na próxima versão.
+
+| Passo | Branch | O que aconteceu |
+|---|---|---|
+| 1 | `develop` | Criada a partir da `main` |
+| 2 | `feature/dashboard-api` | Criada a partir da `develop`; 4 commits: API, tela, testes e documentação |
+| 3 | `develop` | `merge --no-ff` da feature |
+| 4 | `main` | `merge --no-ff` da `develop` + tag **`v1.1.0`** |
+| 5 | `hotfix/1.1.1` | Criada a partir da `main`; commit da correção |
+| 6 | `main` | `merge --no-ff` do hotfix + tag **`v1.1.1`** |
+| 7 | `develop` | `merge --no-ff` do hotfix, para a correção seguir nas próximas versões |
+
+O desenho do histórico pode ser visto no GitHub em **Insights → Network** ou com `git log --oneline --graph --all`.
 
 ---
 
