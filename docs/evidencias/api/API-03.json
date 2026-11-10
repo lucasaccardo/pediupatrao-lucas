@@ -1,0 +1,71 @@
+// API-03 - Gerente: opções de filtro
+// GET /api/dashboard/filtros
+// HTTP 200 (esperado 200)
+{
+    "status":  [
+                   {
+                       "valor":  "RECEBIDO",
+                       "descricao":  "Recebido"
+                   },
+                   {
+                       "valor":  "EM_PREPARACAO",
+                       "descricao":  "Em preparação"
+                   },
+                   {
+                       "valor":  "PRONTO",
+                       "descricao":  "Pronto"
+                   },
+                   {
+                       "valor":  "SAIU_PARA_ENTREGA",
+                       "descricao":  "Saiu para entrega"
+                   },
+                   {
+                       "valor":  "RETIRADO",
+                       "descricao":  "Retirado"
+                   },
+                   {
+                       "valor":  "FINALIZADO",
+                       "descricao":  "Finalizado"
+                   },
+                   {
+                       "valor":  "CANCELADO",
+                       "descricao":  "Cancelado"
+                   }
+               ],
+    "modalidades":  [
+                        {
+                            "valor":  "ENTREGA",
+                            "descricao":  "Entrega"
+                        },
+                        {
+                            "valor":  "RETIRADA",
+                            "descricao":  "Retirada no balcão"
+                        }
+                    ],
+    "agrupamentos":  [
+                         {
+                             "valor":  "DIA",
+                             "descricao":  "Por dia"
+                         },
+                         {
+                             "valor":  "SEMANA",
+                             "descricao":  "Por semana"
+                         },
+                         {
+                             "valor":  "MES",
+                             "descricao":  "Por mês"
+                         }
+                     ],
+    "criteriosRanking":  [
+                             {
+                                 "valor":  "QUANTIDADE",
+                                 "descricao":  "Quantidade vendida"
+                             },
+                             {
+                                 "valor":  "FATURAMENTO",
+                                 "descricao":  "Faturamento"
+                             }
+                         ],
+    "periodoPadraoDias":  30,
+    "periodoMaximoDias":  366
+}

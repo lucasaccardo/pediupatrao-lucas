@@ -1,0 +1,4 @@
+// API-01 - Sem login: indicadores
+// GET /api/dashboard/indicadores
+// HTTP 401 (esperado 401)
+(corpo vazio)

@@ -1,0 +1,10 @@
+// API-20 - Status inexistente
+// GET /api/dashboard/pedidos/status?status=ENTREGUE
+// HTTP 400 (esperado 400)
+{
+    "timestamp":  "2026-11-10T17:34:08.593340500",
+    "status":  400,
+    "erro":  "Bad Request",
+    "mensagem":  "Status inválido: ENTREGUE. Valores aceitos: RECEBIDO, EM_PREPARACAO, PRONTO, SAIU_PARA_ENTREGA, RETIRADO, FINALIZADO, CANCELADO.",
+    "campo":  "status"
+}

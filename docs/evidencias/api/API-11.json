@@ -1,0 +1,75 @@
+// API-11 - Gerente: 5 pedidos mais recentes
+// GET /api/dashboard/pedidos/recentes?limite=5
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:08.1110941",
+    "dados":  [
+                  {
+                      "id":  "6af3778954551d03595a02ee",
+                      "codigo":  "5A02EE",
+                      "cliente":  "Carla Mendes",
+                      "status":  "RECEBIDO",
+                      "statusDescricao":  "Recebido",
+                      "modalidade":  "RETIRADA",
+                      "itens":  2,
+                      "valorTotal":  26.60,
+                      "dataHoraEntrada":  "2026-11-10T16:56:05.767",
+                      "responsavelEntrada":  "atendente"
+                  },
+                  {
+                      "id":  "6af3778954551d03595a02ef",
+                      "codigo":  "5A02EF",
+                      "cliente":  "Diego Rocha",
+                      "status":  "EM_PREPARACAO",
+                      "statusDescricao":  "Em preparação",
+                      "modalidade":  "ENTREGA",
+                      "itens":  3,
+                      "valorTotal":  69.00,
+                      "dataHoraEntrada":  "2026-11-10T16:47:05.767",
+                      "responsavelEntrada":  "atendente"
+                  },
+                  {
+                      "id":  "6af3778954551d03595a02f0",
+                      "codigo":  "5A02F0",
+                      "cliente":  "Ana Souza",
+                      "status":  "EM_PREPARACAO",
+                      "statusDescricao":  "Em preparação",
+                      "modalidade":  "RETIRADA",
+                      "itens":  1,
+                      "valorTotal":  12.00,
+                      "dataHoraEntrada":  "2026-11-10T16:37:05.767",
+                      "responsavelEntrada":  "atendente"
+                  },
+                  {
+                      "id":  "6af3778954551d03595a02f1",
+                      "codigo":  "5A02F1",
+                      "cliente":  "Felipe Costa",
+                      "status":  "PRONTO",
+                      "statusDescricao":  "Pronto",
+                      "modalidade":  "ENTREGA",
+                      "itens":  1,
+                      "valorTotal":  56.90,
+                      "dataHoraEntrada":  "2026-11-10T16:24:05.767",
+                      "responsavelEntrada":  "atendente"
+                  },
+                  {
+                      "id":  "6af3778954551d03595a02f2",
+                      "codigo":  "5A02F2",
+                      "cliente":  "Diego Rocha",
+                      "status":  "SAIU_PARA_ENTREGA",
+                      "statusDescricao":  "Saiu para entrega",
+                      "modalidade":  "ENTREGA",
+                      "itens":  3,
+                      "valorTotal":  75.90,
+                      "dataHoraEntrada":  "2026-11-10T16:09:05.767",
+                      "responsavelEntrada":  "atendente"
+                  }
+              ]
+}

@@ -1,0 +1,50 @@
+// API-07 - Gerente: vendas por semana
+// GET /api/dashboard/vendas?agrupamento=SEMANA
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.7879326",
+    "dados":  [
+                  {
+                      "chave":  "2026-10-12",
+                      "rotulo":  "Sem. 12/10",
+                      "pedidos":  35,
+                      "cancelados":  1,
+                      "faturamento":  3285.95
+                  },
+                  {
+                      "chave":  "2026-10-19",
+                      "rotulo":  "Sem. 19/10",
+                      "pedidos":  38,
+                      "cancelados":  3,
+                      "faturamento":  3274.49
+                  },
+                  {
+                      "chave":  "2026-10-26",
+                      "rotulo":  "Sem. 26/10",
+                      "pedidos":  43,
+                      "cancelados":  3,
+                      "faturamento":  4537.70
+                  },
+                  {
+                      "chave":  "2026-11-02",
+                      "rotulo":  "Sem. 02/11",
+                      "pedidos":  40,
+                      "cancelados":  3,
+                      "faturamento":  3989.15
+                  },
+                  {
+                      "chave":  "2026-11-09",
+                      "rotulo":  "Sem. 09/11",
+                      "pedidos":  11,
+                      "cancelados":  2,
+                      "faturamento":  853.60
+                  }
+              ]
+}

@@ -1,0 +1,36 @@
+// API-14 - Gerente: filtro status=CANCELADO
+// GET /api/dashboard/indicadores?status=CANCELADO
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  "CANCELADO",
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:08.3368205",
+    "dados":  {
+                  "totalPedidos":  12,
+                  "pedidosValidos":  0,
+                  "pedidosCancelados":  12,
+                  "pedidosEmAndamento":  0,
+                  "pedidosFinalizados":  0,
+                  "faturamento":  0.00,
+                  "ticketMedio":  0.00,
+                  "totalDescontos":  0.00,
+                  "itensVendidos":  0,
+                  "taxaCancelamentoPercentual":  100.0,
+                  "tempoMedioAteSaidaMinutos":  null,
+                  "comparativoPeriodoAnterior":  {
+                                                     "inicio":  "2026-09-12",
+                                                     "fim":  "2026-10-11",
+                                                     "faturamento":  0.00,
+                                                     "pedidosValidos":  0,
+                                                     "ticketMedio":  0.00,
+                                                     "variacaoFaturamentoPercentual":  null,
+                                                     "variacaoPedidosPercentual":  null,
+                                                     "variacaoTicketMedioPercentual":  null
+                                                 }
+              }
+}
