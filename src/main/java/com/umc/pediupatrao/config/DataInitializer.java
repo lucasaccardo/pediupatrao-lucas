@@ -7,6 +7,7 @@ import com.umc.pediupatrao.repository.ProdutoRepository;
 import com.umc.pediupatrao.repository.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,9 @@ public class DataInitializer {
     private static final Logger log = LoggerFactory.getLogger(DataInitializer.class);
 
     @Bean
-    CommandLineRunner initDatabase(UsuarioRepository usuarios, ProdutoRepository produtos, PasswordEncoder encoder) {
+    CommandLineRunner initDatabase(UsuarioRepository usuarios, ProdutoRepository produtos, PasswordEncoder encoder,
+                                   DadosDemonstracao demonstracao,
+                                   @Value("${app.demo.pedidos:false}") boolean gerarPedidosDemo) {
         return args -> {
             criarOuCorrigirUsuario(usuarios, encoder, "admin", "teste123", Perfil.ADMIN);
             criarOuCorrigirUsuario(usuarios, encoder, "gerente", "gerente123", Perfil.GERENTE);
@@ -37,6 +40,11 @@ public class DataInitializer {
                 produtos.save(produto("Pizza Portuguesa", "Pizza", 54.50));
                 produtos.save(produto("Refrigerante 2L", "Bebida", 12.00));
                 log.info("Produtos iniciais do cardápio criados.");
+            }
+
+            // Dashboard: massa de pedidos de demonstração (só com DEMO_PEDIDOS=true e banco sem pedidos)
+            if (gerarPedidosDemo) {
+                demonstracao.gerarSeVazio();
             }
         };
     }

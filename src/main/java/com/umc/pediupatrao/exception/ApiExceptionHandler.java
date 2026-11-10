@@ -3,6 +3,7 @@ package com.umc.pediupatrao.exception;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +28,21 @@ public class ApiExceptionHandler {
     @ExceptionHandler(RecursoNaoEncontradoException.class)
     public ResponseEntity<Map<String, Object>> naoEncontrado(RecursoNaoEncontradoException ex) {
         return corpo(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    /** Parâmetro inválido (data, status, limite...): 400 com o nome do campo. */
+    @ExceptionHandler(RequisicaoInvalidaException.class)
+    public ResponseEntity<Map<String, Object>> requisicaoInvalida(RequisicaoInvalidaException ex) {
+        ResponseEntity<Map<String, Object>> resposta = corpo(HttpStatus.BAD_REQUEST, ex.getMessage());
+        resposta.getBody().put("campo", ex.getCampo());
+        return resposta;
+    }
+
+    /** Banco de dados fora do ar: 503 com mensagem clara, sem stack trace (RF07). */
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<Map<String, Object>> bancoIndisponivel(DataAccessException ex) {
+        return corpo(HttpStatus.SERVICE_UNAVAILABLE,
+                "Não foi possível consultar o banco de dados no momento. Tente novamente em instantes.");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
