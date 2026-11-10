@@ -196,7 +196,11 @@
 
     // ---------------- Estado da tela ----------------
     var API = '/api/dashboard';
-    var estado = { medida: 'faturamento', criterio: 'QUANTIDADE', agrupamento: 'DIA', autoSeg: 60 };
+    // "aplicados" guarda o último filtro que o servidor ACEITOU. A atualização automática,
+    // o agrupamento e o ranking usam sempre ele, nunca o que está digitado e ainda não foi aplicado.
+    var estado = { medida: 'faturamento', criterio: 'QUANTIDADE', agrupamento: 'DIA', autoSeg: 60,
+                   aplicados: { inicio: '', fim: '', status: '', modalidade: '' } };
+    var pendente = null;
     var graficos = {};
     var ultimaVendas = null;
     var timer = null;
@@ -231,19 +235,21 @@
     }
 
     // ---------------- Requisições à API (RF06 / RF07) ----------------
-    function parametros(extra) {
+    /** Filtros digitados nos campos (ainda não aplicados). */
+    function lerCampos() {
+        return { inicio: el('fInicio').value, fim: el('fFim').value, status: el('fStatus').value, modalidade: el('fModalidade').value };
+    }
+
+    function parametros(filtros, extra) {
         var p = new URLSearchParams();
-        if (el('fInicio').value) p.set('inicio', el('fInicio').value);
-        if (el('fFim').value) p.set('fim', el('fFim').value);
-        if (el('fStatus').value) p.set('status', el('fStatus').value);
-        if (el('fModalidade').value) p.set('modalidade', el('fModalidade').value);
+        ['inicio', 'fim', 'status', 'modalidade'].forEach(function (k) { if (filtros[k]) p.set(k, filtros[k]); });
         Object.keys(extra || {}).forEach(function (k) { p.set(k, extra[k]); });
         return p.toString();
     }
 
     /** Busca JSON e transforma qualquer falha num erro com mensagem amigável. */
-    function buscar(caminho, extra) {
-        var url = API + caminho + (extra === false ? '' : '?' + parametros(extra));
+    function buscar(caminho, extra, filtros) {
+        var url = API + caminho + (extra === false ? '' : '?' + parametros(filtros || estado.aplicados, extra));
         return fetch(url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
             .then(function (resp) {
                 return resp.text().then(function (texto) {
@@ -276,8 +282,14 @@
         el('btnAtualizar').disabled = sim;
     }
 
-    function carregarTudo() {
-        if (carregando) return;
+    /**
+     * Carrega todos os blocos com o filtro informado (ou com o último filtro aceito).
+     * Se o servidor recusar o filtro (400), o painel continua com o último resultado válido:
+     * nada é redesenhado e só a mensagem do filtro aparece.
+     */
+    function carregarTudo(filtros) {
+        var f = filtros || estado.aplicados;
+        if (carregando) { pendente = f; return; } // termina a carga atual e depois aplica este filtro
         carregando = true;
         marcarCarregando(true);
         el('msgFiltro').hidden = true;
@@ -285,17 +297,23 @@
         ['fInicio', 'fFim', 'fStatus', 'fModalidade'].forEach(function (id) { el(id).classList.remove('is-invalid'); });
 
         var pedidos = [
-            buscar('/indicadores'),
-            buscar('/vendas', { agrupamento: estado.agrupamento }),
-            buscar('/pedidos/status'),
-            buscar('/vendas/por-hora'),
-            buscar('/produtos/mais-vendidos', { limite: 6, criterio: estado.criterio }),
-            buscar('/pedidos/recentes', { limite: 8 })
+            buscar('/indicadores', {}, f),
+            buscar('/vendas', { agrupamento: estado.agrupamento }, f),
+            buscar('/pedidos/status', {}, f),
+            buscar('/vendas/por-hora', {}, f),
+            buscar('/produtos/mais-vendidos', { limite: 6, criterio: estado.criterio }, f),
+            buscar('/pedidos/recentes', { limite: 8 }, f)
         ];
         Promise.allSettled(pedidos).then(function (r) {
-            var primeiroErro = r.filter(function (x) { return x.status === 'rejected'; }).map(function (x) { return x.reason; })[0];
-            if (primeiroErro) mostrarErroGeral(primeiroErro);
+            var erros = r.filter(function (x) { return x.status === 'rejected'; }).map(function (x) { return x.reason; });
+            var erroDeFiltro = erros.find(function (e) { return e.status === 400; });
+            if (erroDeFiltro) {
+                mostrarErroGeral(erroDeFiltro); // mantém o último resultado válido na tela
+                return;
+            }
+            if (erros.length) mostrarErroGeral(erros[0]);
 
+            estado.aplicados = f; // o servidor aceitou: este passa a ser o filtro em uso
             secao(r[0], renderIndicadores, null);
             secao(r[1], renderVendas, 'cVendas');
             secao(r[2], renderStatus, 'listaStatus');
@@ -308,6 +326,7 @@
         }).finally(function () {
             carregando = false;
             marcarCarregando(false);
+            if (pendente) { var proximo = pendente; pendente = null; carregarTudo(proximo); }
         });
     }
 
@@ -327,7 +346,7 @@
         if (erro.status === 400) {
             var campo = { inicio: 'fInicio', fim: 'fFim', status: 'fStatus', modalidade: 'fModalidade' }[erro.campo];
             if (campo) el(campo).classList.add('is-invalid');
-            el('msgFiltro').textContent = erro.message;
+            el('msgFiltro').textContent = erro.message + ' O painel continua mostrando o último período válido.';
             el('msgFiltro').hidden = false;
             return;
         }
@@ -346,8 +365,9 @@
         if (!resposta || !resposta.filtros) return;
         var f = resposta.filtros;
         el('txtPeriodo').textContent = br(f.inicio) + ' a ' + br(f.fim) + ' (' + f.dias + (f.dias === 1 ? ' dia)' : ' dias)');
-        if (!el('fInicio').value) el('fInicio').value = f.inicio;
-        if (!el('fFim').value) el('fFim').value = f.fim;
+        // Campos vazios recebem as datas padrão que o servidor aplicou
+        if (!el('fInicio').value && !estado.aplicados.inicio) el('fInicio').value = f.inicio;
+        if (!el('fFim').value && !estado.aplicados.fim) el('fFim').value = f.fim;
         var g = new Date(resposta.geradoEm);
         el('txtAtualizado').textContent = isNaN(g) ? '—' : g.toLocaleTimeString('pt-BR');
     }
@@ -525,7 +545,7 @@
         else inicio.setDate(hoje.getDate() - (Number(btn.dataset.dias) - 1));
         el('fInicio').value = iso(inicio);
         el('fFim').value = iso(hoje);
-        carregarTudo();
+        carregarTudo(lerCampos());
     }
 
     function programarAuto() {
@@ -540,15 +560,15 @@
         document.querySelectorAll(grupoSeletor).forEach(function (b) { b.classList.toggle('active', b === botao); });
     }
 
-    el('formFiltros').addEventListener('submit', function (e) { e.preventDefault(); carregarTudo(); });
+    el('formFiltros').addEventListener('submit', function (e) { e.preventDefault(); carregarTudo(lerCampos()); });
     el('btnLimpar').addEventListener('click', function () {
         ['fInicio', 'fFim', 'fStatus', 'fModalidade'].forEach(function (id) { el(id).value = ''; });
-        carregarTudo();
+        carregarTudo(lerCampos());
     });
     document.querySelectorAll('.presets [data-dias], .presets [data-mes]').forEach(function (b) {
         b.addEventListener('click', function () { aplicarPreset(b); });
     });
-    el('btnAtualizar').addEventListener('click', carregarTudo);
+    el('btnAtualizar').addEventListener('click', function () { carregarTudo(); });
     el('selAuto').addEventListener('change', function () { estado.autoSeg = Number(this.value); programarAuto(); });
     el('selAgrupamento').addEventListener('change', function () { estado.agrupamento = this.value; carregarTudo(); });
     document.querySelectorAll('[data-medida]').forEach(function (b) {

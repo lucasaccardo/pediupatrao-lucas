@@ -9,6 +9,7 @@ Sistema de pedidos de uma pizzaria, evoluído em etapas:
 |---|---|---|
 | `v1.0` | Prática M1 – Parte 2 | Três perfis de acesso, pedidos com itens e total calculado no servidor, máquina de estados, desconto e cancelamento do gerente, auditoria no MongoDB |
 | `v1.1.0` | **Dashboard Administrativo (M2)** | API `/api/dashboard` com 7 endpoints e tela `/dashboard` com indicadores, gráficos, situação dos pedidos, ranking de produtos, filtros e atualização automática |
+| `v1.1.1` | Correção (hotfix) | Filtro recusado pelo servidor não altera mais o painel; a atualização automática usa sempre o último filtro aceito |
 
 ## Dashboard Administrativo (M2)
 
@@ -31,9 +32,10 @@ mvnw spring-boot:run
 Entre com `gerente / gerente123` e clique em **Dashboard** no menu. Com `DEMO_PEDIDOS=true` e o banco sem pedidos, o sistema cria 60 dias de pedidos de exemplo para os gráficos terem conteúdo.
 
 ### Gitflow usado
-- `main`: versões entregues (tags `v1.1.0`).
+- `main`: versões entregues (tags `v1.1.0` e `v1.1.1`).
 - `develop`: integração.
 - `feature/dashboard-api`: implementação da API e da tela do dashboard, integrada em `develop` com `merge --no-ff`.
+- `hotfix/1.1.1`: correção feita a partir da `main` depois da entrega, integrada na `main` (tag `v1.1.1`) e na `develop`.
 
 ---
 
