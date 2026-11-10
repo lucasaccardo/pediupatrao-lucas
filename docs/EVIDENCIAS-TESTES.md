@@ -7,6 +7,7 @@
 | Testes automatizados (`mvnw test`) | **53 testes, 0 falhas, 0 erros — BUILD SUCCESS** (26 novos do dashboard + 27 da Parte 2) |
 | Testes da API no sistema rodando | **24 de 24 casos com o código HTTP esperado** |
 | Dashboard no navegador | Funcionando com os perfis GERENTE e ADMIN; bloqueado para ATENDENTE |
+| Correção da versão 1.1.1 | Filtro recusado mantém o painel com o último período válido (captura 04) |
 
 Os testes foram organizados em níveis, do mais isolado ao sistema inteiro rodando:
 
@@ -107,4 +108,13 @@ Capturas feitas com o sistema rodando e os pedidos de demonstração, logado com
 | ![Visão geral](evidencias/telas/01-visao-geral.png) | Indicadores (RF01), gráfico de vendas (RF02) e situação dos pedidos (RF03) |
 | ![Ranking e horário](evidencias/telas/02-ranking-horario.png) | Pedidos por horário (RF02) e produtos mais vendidos (RF04) |
 | ![Filtro aplicado](evidencias/telas/03-filtro.png) | Filtros aplicados (RF05): período de 7 dias e modalidade Retirada |
-| ![Erro de filtro](evidencias/telas/04-erro-filtro.png) | Tratamento de erro (RF07): data inicial maior que a final |
+| ![Erro de filtro](evidencias/telas/04-erro-filtro.png) | Tratamento de erro (RF07): data inicial maior que a final. O campo fica em vermelho, a mensagem explica o erro e o painel continua com o último período válido (comportamento corrigido na versão 1.1.1) |
+
+### Defeito encontrado e corrigido (v1.1.1)
+
+| | |
+|---|---|
+| **Como foi encontrado** | Ao tirar a captura 04, o painel mostrava "Não foi possível carregar esta seção" em alguns blocos e dados de outro período (30/10 a 01/11) nos indicadores. |
+| **Causa** | Com um filtro recusado (400), cada bloco tratava o erro de um jeito. Além disso, a atualização automática lia as datas direto dos campos, inclusive datas digitadas e ainda não aplicadas. |
+| **Correção** | A tela guarda o último filtro **aceito pelo servidor**. Um filtro recusado só mostra a mensagem e marca o campo; o painel fica intacto. A atualização automática, o agrupamento e o ranking usam sempre o filtro aceito. |
+| **Verificação** | Repetido o passo da captura 04: a mensagem aparece, o campo fica marcado e todos os blocos continuam com o período anterior. "Atualizar agora" com datas inválidas digitadas continua usando o filtro aceito. |
