@@ -1,11 +1,43 @@
-# PediuPatrão — Evolução do Sistema de Pedidos (Prática M1 – Parte 2)
+# PediuPatrão — Sistema de Pedidos com Dashboard Administrativo
 
 **Aluno:** Lucas Mateus Sureira
-**Tecnologias:** Java 21 · Spring Boot 3.4 · Spring Security 6 · Spring Data MongoDB · Thymeleaf
+**Tecnologias:** Java 21 · Spring Boot 3.4 · Spring Security 6 · Spring Data MongoDB · Thymeleaf · Chart.js
 
-Evolução individual do sistema PediuPatrão (pizzaria) com **três perfis de acesso**, **pedidos com itens e total calculado no servidor**, **controle de entrada/saída com máquina de estados**, **desconto e cancelamento exclusivos do gerente** e **auditoria persistente no MongoDB**.
+Sistema de pedidos de uma pizzaria, evoluído em etapas:
+
+| Versão | Atividade | O que entrou |
+|---|---|---|
+| `v1.0` | Prática M1 – Parte 2 | Três perfis de acesso, pedidos com itens e total calculado no servidor, máquina de estados, desconto e cancelamento do gerente, auditoria no MongoDB |
+| `v1.1.0` | **Dashboard Administrativo (M2)** | API `/api/dashboard` com 7 endpoints e tela `/dashboard` com indicadores, gráficos, situação dos pedidos, ranking de produtos, filtros e atualização automática |
+
+## Dashboard Administrativo (M2)
+
+| Entregável | Onde está |
+|---|---|
+| Requisitos funcionais e não funcionais, regras de cálculo, arquitetura e decisões de projeto | [docs/DOCUMENTACAO-DASHBOARD.md](docs/DOCUMENTACAO-DASHBOARD.md) |
+| Documentação dos endpoints (parâmetros, exemplos, erros) | [docs/API-DASHBOARD.md](docs/API-DASHBOARD.md) |
+| Evidências de testes | [docs/EVIDENCIAS-TESTES.md](docs/EVIDENCIAS-TESTES.md) |
+| Dashboard funcional | `http://localhost:8080/dashboard` (perfis ADMIN e GERENTE) |
+| Branch da implementação (gitflow) | [`feature/dashboard-api`](../../tree/feature/dashboard-api) → `develop` → `main` (tag `v1.1.0`) |
+
+### Rodar o dashboard com dados de demonstração
+```bat
+:: com um MongoDB local ligado (mongod)
+set MONGODB_URI=mongodb://localhost:27017
+set MONGODB_DATABASE=pediupatrao_dashboard
+set DEMO_PEDIDOS=true
+mvnw spring-boot:run
+```
+Entre com `gerente / gerente123` e clique em **Dashboard** no menu. Com `DEMO_PEDIDOS=true` e o banco sem pedidos, o sistema cria 60 dias de pedidos de exemplo para os gráficos terem conteúdo.
+
+### Gitflow usado
+- `main`: versões entregues (tags `v1.1.0`).
+- `develop`: integração.
+- `feature/dashboard-api`: implementação da API e da tela do dashboard, integrada em `develop` com `merge --no-ff`.
 
 ---
+
+# Parte 2 — Perfis, pedidos e auditoria
 
 ## 1. Como executar
 

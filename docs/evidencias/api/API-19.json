@@ -1,0 +1,10 @@
+// API-19 - Período maior que 366 dias
+// GET /api/dashboard/indicadores?inicio=2024-01-01&fim=2026-11-10
+// HTTP 400 (esperado 400)
+{
+    "timestamp":  "2026-11-10T17:34:08.581914800",
+    "status":  400,
+    "erro":  "Bad Request",
+    "mensagem":  "O período máximo de consulta é de 366 dias.",
+    "campo":  "fim"
+}

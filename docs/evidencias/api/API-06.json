@@ -1,0 +1,64 @@
+// API-06 - Gerente: vendas por dia
+// GET /api/dashboard/vendas?inicio=2026-11-04&fim=2026-11-10&agrupamento=DIA
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-11-04",
+                    "fim":  "2026-11-10",
+                    "dias":  7,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.713674",
+    "dados":  [
+                  {
+                      "chave":  "2026-11-04",
+                      "rotulo":  "04/11",
+                      "pedidos":  4,
+                      "cancelados":  0,
+                      "faturamento":  514.50
+                  },
+                  {
+                      "chave":  "2026-11-05",
+                      "rotulo":  "05/11",
+                      "pedidos":  5,
+                      "cancelados":  0,
+                      "faturamento":  714.40
+                  },
+                  {
+                      "chave":  "2026-11-06",
+                      "rotulo":  "06/11",
+                      "pedidos":  7,
+                      "cancelados":  0,
+                      "faturamento":  664.80
+                  },
+                  {
+                      "chave":  "2026-11-07",
+                      "rotulo":  "07/11",
+                      "pedidos":  11,
+                      "cancelados":  0,
+                      "faturamento":  816.35
+                  },
+                  {
+                      "chave":  "2026-11-08",
+                      "rotulo":  "08/11",
+                      "pedidos":  4,
+                      "cancelados":  2,
+                      "faturamento":  318.90
+                  },
+                  {
+                      "chave":  "2026-11-09",
+                      "rotulo":  "09/11",
+                      "pedidos":  2,
+                      "cancelados":  2,
+                      "faturamento":  169.40
+                  },
+                  {
+                      "chave":  "2026-11-10",
+                      "rotulo":  "10/11",
+                      "pedidos":  9,
+                      "cancelados":  0,
+                      "faturamento":  684.20
+                  }
+              ]
+}

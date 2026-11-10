@@ -1,0 +1,36 @@
+// API-05 - Gerente: indicadores dos últimos 7 dias
+// GET /api/dashboard/indicadores?inicio=2026-11-04&fim=2026-11-10
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-11-04",
+                    "fim":  "2026-11-10",
+                    "dias":  7,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.6637233",
+    "dados":  {
+                  "totalPedidos":  46,
+                  "pedidosValidos":  42,
+                  "pedidosCancelados":  4,
+                  "pedidosEmAndamento":  5,
+                  "pedidosFinalizados":  37,
+                  "faturamento":  3882.55,
+                  "ticketMedio":  92.44,
+                  "totalDescontos":  8.15,
+                  "itensVendidos":  100,
+                  "taxaCancelamentoPercentual":  8.7,
+                  "tempoMedioAteSaidaMinutos":  36.1,
+                  "comparativoPeriodoAnterior":  {
+                                                     "inicio":  "2026-10-28",
+                                                     "fim":  "2026-11-03",
+                                                     "faturamento":  5064.50,
+                                                     "pedidosValidos":  44,
+                                                     "ticketMedio":  115.10,
+                                                     "variacaoFaturamentoPercentual":  -23.3,
+                                                     "variacaoPedidosPercentual":  -4.5,
+                                                     "variacaoTicketMedioPercentual":  -19.7
+                                                 }
+              }
+}

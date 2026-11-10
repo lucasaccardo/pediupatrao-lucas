@@ -1,0 +1,4 @@
+// API-23 - POST na API (somente leitura), com token CSRF
+// POST /api/dashboard/indicadores
+// HTTP 403 (esperado 403)
+(corpo vazio)

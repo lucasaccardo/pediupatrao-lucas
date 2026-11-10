@@ -1,0 +1,10 @@
+// API-22 - Agrupamento inválido
+// GET /api/dashboard/vendas?agrupamento=ANO
+// HTTP 400 (esperado 400)
+{
+    "timestamp":  "2026-11-10T17:34:08.611442500",
+    "status":  400,
+    "erro":  "Bad Request",
+    "mensagem":  "Agrupamento inválido: ANO. Valores aceitos: DIA, SEMANA, MES.",
+    "campo":  "agrupamento"
+}

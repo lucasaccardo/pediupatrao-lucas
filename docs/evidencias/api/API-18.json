@@ -1,0 +1,10 @@
+// API-18 - Data inicial maior que a final
+// GET /api/dashboard/vendas?inicio=2026-11-10&fim=2026-11-01
+// HTTP 400 (esperado 400)
+{
+    "timestamp":  "2026-11-10T17:34:08.573070800",
+    "status":  400,
+    "erro":  "Bad Request",
+    "mensagem":  "A data inicial não pode ser maior que a data final.",
+    "campo":  "inicio"
+}

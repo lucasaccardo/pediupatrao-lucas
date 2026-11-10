@@ -1,0 +1,36 @@
+// API-04 - Gerente: indicadores com período padrão (30 dias)
+// GET /api/dashboard/indicadores
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.5803339",
+    "dados":  {
+                  "totalPedidos":  179,
+                  "pedidosValidos":  167,
+                  "pedidosCancelados":  12,
+                  "pedidosEmAndamento":  5,
+                  "pedidosFinalizados":  162,
+                  "faturamento":  15940.89,
+                  "ticketMedio":  95.45,
+                  "totalDescontos":  153.71,
+                  "itensVendidos":  409,
+                  "taxaCancelamentoPercentual":  6.7,
+                  "tempoMedioAteSaidaMinutos":  35.2,
+                  "comparativoPeriodoAnterior":  {
+                                                     "inicio":  "2026-09-12",
+                                                     "fim":  "2026-10-11",
+                                                     "faturamento":  14011.57,
+                                                     "pedidosValidos":  139,
+                                                     "ticketMedio":  100.80,
+                                                     "variacaoFaturamentoPercentual":  13.8,
+                                                     "variacaoPedidosPercentual":  20.1,
+                                                     "variacaoTicketMedioPercentual":  -5.3
+                                                 }
+              }
+}

@@ -1,0 +1,43 @@
+// API-08 - Gerente: vendas por mês (90 dias)
+// GET /api/dashboard/vendas?inicio=2026-08-13&fim=2026-11-10&agrupamento=MES
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-08-13",
+                    "fim":  "2026-11-10",
+                    "dias":  90,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.8840137",
+    "dados":  [
+                  {
+                      "chave":  "2026-08",
+                      "rotulo":  "ago/2026",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "2026-09",
+                      "rotulo":  "set/2026",
+                      "pedidos":  81,
+                      "cancelados":  7,
+                      "faturamento":  7565.21
+                  },
+                  {
+                      "chave":  "2026-10",
+                      "rotulo":  "out/2026",
+                      "pedidos":  166,
+                      "cancelados":  8,
+                      "faturamento":  16358.29
+                  },
+                  {
+                      "chave":  "2026-11",
+                      "rotulo":  "nov/2026",
+                      "pedidos":  59,
+                      "cancelados":  5,
+                      "faturamento":  6028.96
+                  }
+              ]
+}
