@@ -1,0 +1,39 @@
+// API-13 - Gerente: ranking por faturamento (top 3)
+// GET /api/dashboard/produtos/mais-vendidos?criterio=FATURAMENTO&limite=3
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:08.2939047",
+    "dados":  [
+                  {
+                      "posicao":  1,
+                      "produtoId":  "6af37635df74c65f94453abb",
+                      "nome":  "Pizza Calabresa",
+                      "quantidade":  82,
+                      "faturamento":  4091.80,
+                      "participacaoPercentual":  25.4
+                  },
+                  {
+                      "posicao":  2,
+                      "produtoId":  "6af3778954551d03595a01a2",
+                      "nome":  "Pizza Frango com Catupiry",
+                      "quantidade":  62,
+                      "faturamento":  3527.80,
+                      "participacaoPercentual":  21.9
+                  },
+                  {
+                      "posicao":  3,
+                      "produtoId":  "6af37635df74c65f94453abc",
+                      "nome":  "Pizza Margherita",
+                      "quantidade":  66,
+                      "faturamento":  2970.00,
+                      "participacaoPercentual":  18.5
+                  }
+              ]
+}

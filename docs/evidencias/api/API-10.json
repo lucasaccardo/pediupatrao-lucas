@@ -1,0 +1,61 @@
+// API-10 - Gerente: situação dos pedidos
+// GET /api/dashboard/pedidos/status
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:08.0548877",
+    "dados":  {
+                  "total":  179,
+                  "emAndamento":  5,
+                  "porStatus":  [
+                                    {
+                                        "status":  "RECEBIDO",
+                                        "descricao":  "Recebido",
+                                        "quantidade":  1,
+                                        "percentual":  0.6
+                                    },
+                                    {
+                                        "status":  "EM_PREPARACAO",
+                                        "descricao":  "Em preparação",
+                                        "quantidade":  2,
+                                        "percentual":  1.1
+                                    },
+                                    {
+                                        "status":  "PRONTO",
+                                        "descricao":  "Pronto",
+                                        "quantidade":  1,
+                                        "percentual":  0.6
+                                    },
+                                    {
+                                        "status":  "SAIU_PARA_ENTREGA",
+                                        "descricao":  "Saiu para entrega",
+                                        "quantidade":  1,
+                                        "percentual":  0.6
+                                    },
+                                    {
+                                        "status":  "RETIRADO",
+                                        "descricao":  "Retirado",
+                                        "quantidade":  0,
+                                        "percentual":  0.0
+                                    },
+                                    {
+                                        "status":  "FINALIZADO",
+                                        "descricao":  "Finalizado",
+                                        "quantidade":  162,
+                                        "percentual":  90.5
+                                    },
+                                    {
+                                        "status":  "CANCELADO",
+                                        "descricao":  "Cancelado",
+                                        "quantidade":  12,
+                                        "percentual":  6.7
+                                    }
+                                ]
+              }
+}

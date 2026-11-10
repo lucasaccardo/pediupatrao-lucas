@@ -1,0 +1,10 @@
+// API-21 - Limite não numérico
+// GET /api/dashboard/produtos/mais-vendidos?limite=abc
+// HTTP 400 (esperado 400)
+{
+    "timestamp":  "2026-11-10T17:34:08.600676800",
+    "status":  400,
+    "erro":  "Bad Request",
+    "mensagem":  "O limite deve ser um número inteiro entre 1 e 50.",
+    "campo":  "limite"
+}

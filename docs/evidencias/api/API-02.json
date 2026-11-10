@@ -1,0 +1,4 @@
+// API-02 - Atendente: indicadores (perfil sem acesso)
+// GET /api/dashboard/indicadores
+// HTTP 403 (esperado 403)
+(corpo vazio)

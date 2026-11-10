@@ -1,0 +1,36 @@
+// API-15 - Gerente: filtro modalidade=RETIRADA
+// GET /api/dashboard/indicadores?modalidade=RETIRADA
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  "RETIRADA"
+                },
+    "geradoEm":  "2026-11-10T17:34:08.396899",
+    "dados":  {
+                  "totalPedidos":  58,
+                  "pedidosValidos":  56,
+                  "pedidosCancelados":  2,
+                  "pedidosEmAndamento":  2,
+                  "pedidosFinalizados":  54,
+                  "faturamento":  5448.66,
+                  "ticketMedio":  97.30,
+                  "totalDescontos":  41.74,
+                  "itensVendidos":  144,
+                  "taxaCancelamentoPercentual":  3.4,
+                  "tempoMedioAteSaidaMinutos":  35.1,
+                  "comparativoPeriodoAnterior":  {
+                                                     "inicio":  "2026-09-12",
+                                                     "fim":  "2026-10-11",
+                                                     "faturamento":  5192.15,
+                                                     "pedidosValidos":  47,
+                                                     "ticketMedio":  110.47,
+                                                     "variacaoFaturamentoPercentual":  4.9,
+                                                     "variacaoPedidosPercentual":  19.1,
+                                                     "variacaoTicketMedioPercentual":  -11.9
+                                                 }
+              }
+}

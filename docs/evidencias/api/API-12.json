@@ -1,0 +1,55 @@
+// API-12 - Gerente: ranking por quantidade
+// GET /api/dashboard/produtos/mais-vendidos
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:08.2103532",
+    "dados":  [
+                  {
+                      "posicao":  1,
+                      "produtoId":  "6af37635df74c65f94453abe",
+                      "nome":  "Refrigerante 2L",
+                      "quantidade":  85,
+                      "faturamento":  1020.00,
+                      "participacaoPercentual":  20.8
+                  },
+                  {
+                      "posicao":  2,
+                      "produtoId":  "6af37635df74c65f94453abb",
+                      "nome":  "Pizza Calabresa",
+                      "quantidade":  82,
+                      "faturamento":  4091.80,
+                      "participacaoPercentual":  20.0
+                  },
+                  {
+                      "posicao":  3,
+                      "produtoId":  "6af37635df74c65f94453abc",
+                      "nome":  "Pizza Margherita",
+                      "quantidade":  66,
+                      "faturamento":  2970.00,
+                      "participacaoPercentual":  16.1
+                  },
+                  {
+                      "posicao":  4,
+                      "produtoId":  "6af3778954551d03595a01a2",
+                      "nome":  "Pizza Frango com Catupiry",
+                      "quantidade":  62,
+                      "faturamento":  3527.80,
+                      "participacaoPercentual":  15.2
+                  },
+                  {
+                      "posicao":  5,
+                      "produtoId":  "6af37635df74c65f94453abd",
+                      "nome":  "Pizza Portuguesa",
+                      "quantidade":  42,
+                      "faturamento":  2289.00,
+                      "participacaoPercentual":  10.3
+                  }
+              ]
+}

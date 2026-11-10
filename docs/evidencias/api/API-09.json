@@ -1,0 +1,183 @@
+// API-09 - Gerente: pedidos por hora do dia
+// GET /api/dashboard/vendas/por-hora
+// HTTP 200 (esperado 200)
+{
+    "filtros":  {
+                    "inicio":  "2026-10-12",
+                    "fim":  "2026-11-10",
+                    "dias":  30,
+                    "status":  null,
+                    "modalidade":  null
+                },
+    "geradoEm":  "2026-11-10T17:34:07.9689738",
+    "dados":  [
+                  {
+                      "chave":  "0",
+                      "rotulo":  "0h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "1",
+                      "rotulo":  "1h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "2",
+                      "rotulo":  "2h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "3",
+                      "rotulo":  "3h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "4",
+                      "rotulo":  "4h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "5",
+                      "rotulo":  "5h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "6",
+                      "rotulo":  "6h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "7",
+                      "rotulo":  "7h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "8",
+                      "rotulo":  "8h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "9",
+                      "rotulo":  "9h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "10",
+                      "rotulo":  "10h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "11",
+                      "rotulo":  "11h",
+                      "pedidos":  13,
+                      "cancelados":  0,
+                      "faturamento":  1466.07
+                  },
+                  {
+                      "chave":  "12",
+                      "rotulo":  "12h",
+                      "pedidos":  11,
+                      "cancelados":  0,
+                      "faturamento":  1316.00
+                  },
+                  {
+                      "chave":  "13",
+                      "rotulo":  "13h",
+                      "pedidos":  10,
+                      "cancelados":  2,
+                      "faturamento":  1191.40
+                  },
+                  {
+                      "chave":  "14",
+                      "rotulo":  "14h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "15",
+                      "rotulo":  "15h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "16",
+                      "rotulo":  "16h",
+                      "pedidos":  5,
+                      "cancelados":  0,
+                      "faturamento":  240.40
+                  },
+                  {
+                      "chave":  "17",
+                      "rotulo":  "17h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  },
+                  {
+                      "chave":  "18",
+                      "rotulo":  "18h",
+                      "pedidos":  16,
+                      "cancelados":  1,
+                      "faturamento":  1288.80
+                  },
+                  {
+                      "chave":  "19",
+                      "rotulo":  "19h",
+                      "pedidos":  36,
+                      "cancelados":  1,
+                      "faturamento":  3014.28
+                  },
+                  {
+                      "chave":  "20",
+                      "rotulo":  "20h",
+                      "pedidos":  35,
+                      "cancelados":  3,
+                      "faturamento":  3528.11
+                  },
+                  {
+                      "chave":  "21",
+                      "rotulo":  "21h",
+                      "pedidos":  28,
+                      "cancelados":  4,
+                      "faturamento":  2627.78
+                  },
+                  {
+                      "chave":  "22",
+                      "rotulo":  "22h",
+                      "pedidos":  13,
+                      "cancelados":  1,
+                      "faturamento":  1268.05
+                  },
+                  {
+                      "chave":  "23",
+                      "rotulo":  "23h",
+                      "pedidos":  0,
+                      "cancelados":  0,
+                      "faturamento":  0.00
+                  }
+              ]
+}
